@@ -1,3 +1,7 @@
+/* * {
+  cursor: url("RainbowCursor.png"), pointer;
+} */
+
 :root {
   --buttonColor: #8936b5;
   --disabledButtonColor: #53216e;
@@ -163,6 +167,10 @@ body {
   80% { transform: translate(1px, -1px) rotate(1deg); }
   100% { transform: translate(-1px, 2px) rotate(-1deg); }
 } */
+
+button:hover {
+  cursor: default;
+}
 
 .clicker-box #hat {
   display: block;

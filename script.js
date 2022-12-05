@@ -5,7 +5,7 @@ var clicknum = 1;
 var idlenum = 0;
 var upgradechange = 1.1;
 var amongusupgradechange = 200;
-var amongusCost = 5000000;
+var amongusCost = 10000000;
 var clickUpgradesOwned = [0,
                          0,
                          0,
@@ -21,12 +21,12 @@ var accessoryUpgradesOwned = [0,
 var clickUpgradeCosts = [10,
                         3000,
                         75000,
-                        100000000,
+                        5000000,
                         0];
 var idleUpgradeCosts = [100,
                         4000,
                         125000,
-                        200000000,
+                        10000000,
                         0];
 var accessoryUpgradeCosts = [10000000,
                         10000000000,
@@ -73,10 +73,10 @@ start();
 checkupgrades();
 loadData();
 
-// document.onkeypress = function (e) {
-//   e = e || window.event;
-//   key_pressed(e);
-// };
+document.onkeypress = function (e) {
+  e = e || window.event;
+  key_pressed(e);
+};
 
 // function key_pressed(e) {
 //   amongusnum += 10000*clicknum;
@@ -92,14 +92,9 @@ function checkupgrades() {
   for(let i=0; i < clickUpgrades.length; i++){
     if(amongusnum >= clickUpgradeCosts[i]){
       clickUpgradeButtons[i].disabled = false;   
-      if((document.getElementById("click-upgrades").style.gridTemplateRows).split(" ").length <= i+2){
-        document.getElementById("click-upgrades").style.gridTemplateRows += " 100px";
-        document.getElementById("click-upgrades").style.gridTemplateRows += " 100px";
-        if(i != (clickUpgrades.length)){
-          clickUpgrades[i+1].style.display = "flex";
-        }
+      if(i != (clickUpgrades.length-1)){
+        clickUpgrades[i+1].style.display = "flex";
       }
-      
     }else{
       clickUpgradeButtons[i].disabled = true;
     }
@@ -107,10 +102,6 @@ function checkupgrades() {
   for(let i=0; i < idleUpgrades.length; i++){
     if(amongusnum >= idleUpgradeCosts[i]){
       idleUpgradeButtons[i].disabled = false;
-      if((document.getElementById("idle-upgrades").style.gridTemplateRows).split(" ").length <= i+2){
-        document.getElementById("idle-upgrades").style.gridTemplateRows += " 100px";
-        document.getElementById("idle-upgrades").style.gridTemplateRows += " 100px";
-      }
       if(i != idleUpgrades.length-1){
         idleUpgrades[i+1].style.display = "flex";
       }
@@ -121,10 +112,6 @@ function checkupgrades() {
   for(let i=0; i < accessoryUpgrades.length; i++){
     if(amongusnum >= accessoryUpgradeCosts[i]){
       accessoryUpgradeButtons[i].disabled = false;
-      if((document.getElementById("accessory-upgrades").style.gridTemplateRows).split(" ").length <= i+2){
-        document.getElementById("accessory-upgrades").style.gridTemplateRows += " 100px";
-        document.getElementById("accessory-upgrades").style.gridTemplateRows += " 100px";
-      }
       if(i != accessoryUpgrades.length-1){
          accessoryUpgrades[i+1].style.display = "flex";
       }
@@ -190,7 +177,7 @@ function clickupgrade3() {
 }
 
 function clickupgrade4() {
-  clicknum += 1000000;
+  clicknum += 50000;
   amongusnum -= clickUpgradeCosts[3];
   clickUpgradeCosts[3] *= upgradechange;
   clickUpgradesOwned[3] += 1;
@@ -210,7 +197,7 @@ function idleupgrade1() {
 }
 
 function idleupgrade2() {
-  idlenum += 50;
+  idlenum += 75;
   amongusnum -= idleUpgradeCosts[1];
   idleUpgradeCosts[1] *= upgradechange;
   idleUpgradesOwned[1] += 1;
@@ -230,7 +217,7 @@ function idleupgrade3() {
 }
 
 function idleupgrade4() {
-  idlenum += 2000000;
+  idlenum += 500000;
   amongusnum -= idleUpgradeCosts[3];
   idleUpgradeCosts[3] *= upgradechange;
   idleUpgradesOwned[3] += 1;
@@ -240,8 +227,8 @@ function idleupgrade4() {
 }
 
 function accessoryupgrade1() {
-  clicknum += 30000;
-  idlenum += 20000;
+  clicknum += 100000;
+  idlenum += 200000;
   amongusnum -= accessoryUpgradeCosts[0];
   accessoryUpgradeCosts[0] *= upgradechange;
   updateScore();
@@ -399,31 +386,14 @@ function loadData() {
     for (let index = 0; index < accessoryUpgradesOwned.length; index++) {
       accessoryUpgradesOwned[index] = Number(accessoryUpgradesOwned[index]);
     }
-    for(let i=0; i<clickUpgradeCosts.length-1; i++){
-      clickUpgradeCosts[i] *= upgradechange ** clickUpgradesOwned[i];
-      if(clickUpgradesOwned[i] != 0){
-        clickUpgrades[i].style.display = "flex";
-        clickUpgrades[i+1].style.display = "flex";
-      }
-    }
-    for(let i=0; i<idleUpgradeCosts.length-1; i++){
-      idleUpgradeCosts[i] *= upgradechange ** idleUpgradesOwned[i];
-      if(idleUpgradesOwned[i] != 0){
-        idleUpgrades[i].style.display = "flex";
-        idleUpgrades[i+1].style.display = "flex";
-      }
-    }
-    for(let i=0; i<accessoryUpgradeCosts.length-1; i++){
-      accessoryUpgradeCosts[i] *= upgradechange ** accessoryUpgradesOwned[i];
-      if(accessoryUpgradesOwned[i] != 0){
-        accessoryUpgrades[i].style.display = "flex";
-        accessoryUpgrades[i+1].style.display = "flex";
-      }
+    if(accessoryUpgrades[0].style.display = "flex"){
+      document.getElementById("upgrades-header-amongus").style.visibility = "visible";
     }
     loadAmongusUpgrades();
     updateUpgradesOwned();
     updateUpgradeCosts();
     updateScore();
+    checkupgrades();
   }
 }
 
@@ -444,6 +414,27 @@ function updateUpgradesOwned() {
 }
 
 function updateUpgradeCosts() {
+  for(let i=0; i<clickUpgradeCosts.length-1; i++){
+      clickUpgradeCosts[i] *= upgradechange ** clickUpgradesOwned[i];
+      if(clickUpgradesOwned[i] != 0 && i < clickUpgradesOwned.length-1){
+        clickUpgrades[i].style.display = "flex";
+        clickUpgrades[i+1].style.display = "flex";
+      }
+    }
+    for(let i=0; i<idleUpgradeCosts.length-1; i++){
+      idleUpgradeCosts[i] *= upgradechange ** idleUpgradesOwned[i];
+      if(idleUpgradesOwned[i] != 0 && i < idleUpgradesOwned.length-1){
+        idleUpgrades[i].style.display = "flex";
+        idleUpgrades[i+1].style.display = "flex";
+      }
+    }
+    for(let i=0; i<accessoryUpgradeCosts.length-1; i++){
+      accessoryUpgradeCosts[i] *= upgradechange ** accessoryUpgradesOwned[i];
+      if(accessoryUpgradesOwned[i] != 0 && i < accessoryUpgradesOwned.length){
+        accessoryUpgrades[i].style.display = "flex";
+        accessoryUpgrades[i+1].style.display = "flex";
+      }
+    }
   clickupgrade1cost.innerHTML = shortNum(clickUpgradeCosts[0]);
   clickupgrade2cost.innerHTML = shortNum(clickUpgradeCosts[1]);
   clickupgrade3cost.innerHTML = shortNum(clickUpgradeCosts[2]);

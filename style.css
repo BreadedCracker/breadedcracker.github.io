@@ -9,6 +9,24 @@
   --infoColor: grey;
 }
 
+::-webkit-scrollbar {
+width: 12px;
+}
+
+::-webkit-scrollbar-track {
+border: 1px solid #575757;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-track:disabled {
+border: 0px solid #575757;
+}
+
+::-webkit-scrollbar-thumb {
+background: gray;  
+border-radius: 10px;
+}
+
 html {
   height: 100%;
   width: 100%;
@@ -201,8 +219,6 @@ body {
 .upgrades {
   width:100%;
   height: 100%;
-  display: grid;
-  grid-template: 100px 100px 100px 100px 100px / 33% 33% 34%;
   background-color: var(--boxColor);
   border-radius: 30px;
   grid-column-start: 2;
@@ -211,11 +227,42 @@ body {
   grid-row-end: 3;
 }
 
+.upgrades #upgrades-header-container {
+  display: grid;
+  grid-template: 100px calc(100% - 100px) / 33% 33% 34%;
+}
+
+.upgrades #upgrades-header-container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.upgrades #upgrades-header-container #upgrades-header-amongus {
+  visibility: hidden;
+}
+
 .upgrades img {
   user-select: none;
 }
 
-.upgrades button {
+.upgrades #upgrades-scroll-container {
+  width: 100%;
+  height: calc(100% - 120px);
+  display: grid;
+  grid-template: 100% / 33% 33% 34%;
+  overflow-y: scroll;
+}
+
+.upgrades #upgrades-scroll-container > * {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template: 100px / 100%;
+}
+
+.upgrades #upgrades-scroll-container button {
   width: 150px;
   height: 60px;
   background-color: var(--buttonColor);
@@ -229,27 +276,27 @@ body {
   user-select: none;
 }
 
-.upgrades button:disabled {
+#upgrades-scroll-container button:disabled {
   background-color: var(--enabledShadowColor);
-  color: transparent;
+  color: var(--disabledShadowColor);
   box-shadow: 0 4px var(--disabledShadowColor);
 }
 
-.upgrades button:disabled:active {
+#upgrades-scroll-container button:disabled:active {
   transform: none;
   box-shadow: 0 4px var(--disabledShadowColor);
 }
 
-.upgrades button:active {
+#upgrades-scroll-container button:active {
   box-shadow: 0 4px var(--enabledShadowColor);
   transform: translateY(4px);
 }
 
-.upgrades > * {
-  display: flex;
+.upgrades #upgrades-scroll-container > * > * {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  display: none;
 }
 
 .upgrades .upgrade-text {

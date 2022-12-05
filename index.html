@@ -39,7 +39,7 @@
     </div>
     <div class="amongus-upgrades">
       <div>
-        <button type="button" onclick="buyAmongus();" id="buy-amongus" disabled>Upgrade Amongus<br>Sus per click * 1.75 <br> Cost: <span id="amonguscost">10.00M</span> sus <br></button>
+        <button type="button" onclick="buyAmongus();" id="buy-amongus" disabled>Upgrade Amongus<br>Sus per click * 1.5 <br> Cost: <span id="amonguscost">10.00M</span> sus <br></button>
       </div>
       <div>
         <img id="amongus-buy-img" src="Unknown.png">
@@ -54,56 +54,66 @@
       </div>
     </div>
     <div class="upgrades">
-      <div><img src="Cursor.png" width="30" height="auto" color="transparent"></div>
-      <div><img src="Clock.png" width="50" height="auto" color="transparent"></div>
-      <div><img id="upgrades-header-amongus"src="Purple.png" width="60" height="auto" color="transparent"></div>
-      <div>
-        <button type="button" onclick="upgrade1();" id="upgrade1" disabled>Better Clicks<br>+1 sus per click <br> Cost: <span id="upgrade1cost">10</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade1owned">0</span></div>
+      <div id="upgrades-header-container">
+        <div><img src="Cursor.png" width="30" height="auto" color="transparent"></div>
+        <div><img src="Clock.png" width="50" height="auto" color="transparent"></div>
+        <div><img id="upgrades-header-amongus"src="Purple.png" width="60" height="auto" color="transparent"></div>
       </div>
-      <div>
-        <button type="button" onclick="upgrade2();" id="upgrade2" disabled>Auto Susser<br>+5 sus per second <br> Cost: <span id="upgrade2cost">100</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade2owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade3();" id="upgrade3" disabled>Toilet Paper Amongus <br>He's built different<br>Cost: <span id="upgrade3cost">2.00M</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade3owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade4();" id="upgrade4" disabled>Awesome Clicks <br>+20 sus per click <br> Cost: <span id="upgrade4cost">5.00K</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade4owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade5();" id="upgrade5" disabled>Super Susser<br>+50 sus per second <br> Cost: <span id="upgrade5cost">10.00K</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade5owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade6();" id="upgrade6" disabled>Top Hat Amongus<br>He's a fancy boi<br> Cost: <span id="upgrade6cost">10.00B</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade6owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade7();" id="upgrade7" disabled>Insane Clicks<br>+500 spc <br> Cost: <span id="upgrade7cost">150.00K</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade7owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade8();" id="upgrade8" disabled>Mega Susser<br>+3K sps <br> Cost: <span id="upgrade8cost">200.00K</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade8owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade9();" id="upgrade9" disabled>Devil horns<br>Susser than satan<br> Cost: <span id="upgrade9cost">10.00B</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade9owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade10();" id="upgrade10" disabled>Super Clicks<br>+100M spc<br> Cost: <span id="upgrade10cost">100.00B</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade10owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade11();" id="upgrade11" disabled>Daddy Susser<br>+1T sps<br> Cost: <span id="upgrade11cost">2.00T</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade11owned"> 0 </span></div>
-      </div>
-      <div>
-        <button type="button" onclick="upgrade12();" id="upgrade12" disabled>Captain Hat<br>Aye, matey<br> Cost: <span id="upgrade12cost">1.00Q</span> sus</button>
-        <div class="upgrade-text">Owned: <span id="upgrade12owned"> 0 </span></div>
+      <div id="upgrades-scroll-container">
+        <div id="click-upgrades">
+          <div id="clickupgrade1-container">
+            <button type="button" onclick="clickupgrade1();" id="clickupgrade1" disabled>Better Clicks<br>+1 sus per click <br> Cost: <span id="clickupgrade1cost">10</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="clickupgrade1owned">0</span></div>
+          </div>
+          <div id="clickupgrade2-container">
+            <button type="button" onclick="clickupgrade2();" id="clickupgrade2" disabled>Awesome Clicks <br>+20 sus per click <br> Cost: <span id="clickupgrade2cost">3.00K</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="clickupgrade2owned"> 0 </span></div>
+          </div>
+          <div id="clickupgrade3-container">
+            <button type="button" onclick="clickupgrade3();" id="clickupgrade3" disabled>Insane Clicks<br>+500 spc <br> Cost: <span id="clickupgrade3cost">75.00K</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="clickupgrade3owned"> 0 </span></div>
+          </div>
+          <div id="clickupgrade4-container">
+            <button type="button" onclick="clickupgrade4();" id="clickupgrade4" disabled>Super Clicks<br>+100M spc<br> Cost: <span id="clickupgrade4cost">100.00M</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="clickupgrade4owned"> 0 </span></div>
+          </div>
+        </div>
+        <div id="idle-upgrades">
+          <div id="idleupgrade1-container">
+            <button type="button" onclick="idleupgrade1();" id="idleupgrade1" disabled>Auto Susser<br>+5 sus per second <br> Cost: <span id="idleupgrade1cost">100</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="idleupgrade1owned"> 0 </span></div>
+          </div>
+          <div id="idleupgrade2-container">
+            <button type="button" onclick="idleupgrade2();" id="idleupgrade2" disabled>Super Susser<br>+50 sus per second <br> Cost: <span id="idleupgrade2cost">4.00K</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="idleupgrade2owned"> 0 </span></div>
+          </div>
+          <div id="idleupgrade3-container">
+            <button type="button" onclick="idleupgrade3();" id="idleupgrade3" disabled>Mega Susser<br>+2K sps <br> Cost: <span id="idleupgrade3cost">125.00K</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="idleupgrade3owned"> 0 </span></div>
+          </div>
+          <div id="idleupgrade4-container">
+            <button type="button" onclick="idleupgrade4();" id="idleupgrade4" disabled>Daddy Susser<br>+1T sps<br> Cost: <span id="idleupgrade4cost">200.00M</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="idleupgrade4owned"> 0 </span></div>
+          </div>
+        </div>
+        <div id="accessory-upgrades">
+          <div id="accessoryupgrade1-container">
+            <button type="button" onclick="accessoryupgrade1();" id="accessoryupgrade1" disabled>Toilet Paper Amongus <br>He's built different<br>Cost: <span id="accessoryupgrade1cost">10.00M</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="accessoryupgrade1owned"> 0 </span></div>
+          </div>
+          <div id="accessoryupgrade2-container">
+            <button type="button" onclick="accessoryupgrade2();" id="accessoryupgrade2" disabled>Top Hat Amongus<br>He's a fancy boi<br> Cost: <span id="accessoryupgrade2cost">10.00B</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="accessoryupgrade2owned"> 0 </span></div>
+          </div>
+          <div id="accessoryupgrade3-container">
+            <button type="button" onclick="accessoryupgrade3();" id="accessoryupgrade3" disabled>Devil horns<br>Susser than satan<br> Cost: <span id="accessoryupgrade3cost">1.00T</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="accessoryupgrade3owned"> 0 </span></div>
+          </div>
+          <div id="accessoryupgrade4-container">
+            <button type="button" onclick="accessoryupgrade4();" id="accessoryupgrade4" disabled>Captain Hat<br>Aye, matey<br> Cost: <span id="accessoryupgrade4cost">1.00Q</span> sus</button>
+            <div class="upgrade-text">Owned: <span id="accessoryupgrade4owned"> 0 </span></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

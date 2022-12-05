@@ -1,22 +1,65 @@
 var score = document.getElementById("score");
 var amongusnum = 0;
-var amongusMultiplier = 1.7;
+var amongusMultiplier = 1;
 var clicknum = 1;
 var idlenum = 0;
 var upgradechange = 1.1;
 var amongusupgradechange = 200;
-var amongusCost = 10000000;
-const img = document.getElementById("Amongus");
-var upgradesOwned = [0, 0, 0, 
-                     0, 0, 0, 
-                     0, 0, 0,
-                     0, 0, 0,
-                     0, 0, 0];
-var upgradeCosts = [10, 100, 2000000, 
-                   5000, 10000, 10000000000, 
-                   150000, 200000, 10000000000,
-                   100000000000, 200000000000000, 1000000000000000,
-                   0, 0, 0]
+var amongusCost = 5000000;
+var clickUpgradesOwned = [0,
+                         0,
+                         0,
+                         0];
+var idleUpgradesOwned = [0,
+                         0,
+                         0,
+                         0];
+var accessoryUpgradesOwned = [0,
+                             0,
+                             0,
+                             0];
+var clickUpgradeCosts = [10,
+                        3000,
+                        75000,
+                        100000000,
+                        0];
+var idleUpgradeCosts = [100,
+                        4000,
+                        125000,
+                        200000000,
+                        0];
+var accessoryUpgradeCosts = [10000000,
+                        10000000000,
+                        1000000000000,
+                        1000000000000000,
+                        0];
+var clickUpgrades = [document.getElementById("clickupgrade1-container"),
+                    document.getElementById("clickupgrade2-container"),
+                    document.getElementById("clickupgrade3-container"),
+                    document.getElementById("clickupgrade4-container")];
+var clickUpgradeButtons = [document.getElementById("clickupgrade1"),
+                    document.getElementById("clickupgrade2"),
+                    document.getElementById("clickupgrade3"),
+                    document.getElementById("clickupgrade4")];
+var idleUpgrades = [document.getElementById("idleupgrade1-container"),
+                   document.getElementById("idleupgrade2-container"),
+                   document.getElementById("idleupgrade3-container"),
+                   document.getElementById("idleupgrade4-container")];
+var idleUpgradeButtons = [document.getElementById("idleupgrade1"),
+                    document.getElementById("idleupgrade2"),
+                    document.getElementById("idleupgrade3"),
+                    document.getElementById("idleupgrade4")];
+var accessoryUpgrades = [document.getElementById("accessoryupgrade1-container"),
+                        document.getElementById("accessoryupgrade2-container"),
+                        document.getElementById("accessoryupgrade3-container"),
+                        document.getElementById("accessoryupgrade4-container")];
+var accessoryUpgradeButtons = [document.getElementById("accessoryupgrade1"),
+                    document.getElementById("accessoryupgrade2"),
+                    document.getElementById("accessoryupgrade3"),
+                    document.getElementById("accessoryupgrade4")];
+var clickUpgradeNum = 0;
+var idleUpgradeNum = 0;
+var accessoryUpgradeNum = 0;
 var amongusUpgrades = 0;
 var amongusList = ["Purple.png", "Blue.png", "Green.png", "Yellow.png", "Orange.png", "Red.png", "White.png", "Magenta.png"];
 var accessories = ["", "ToiletPaper.png", "TopHat.png", "DevilHorns.png", "CaptainHat.png"]
@@ -26,6 +69,7 @@ var buttonMiddleColors = ["#53216e", "#190178", "#123d17", "#767814", "#825311",
 var buttonDarkColors = ["#3b1859", "#10004f", "#0a240d", "#46470b", "#4a2f08", "#47100b", "#303030", "#4a1031"];
 setInterval(addidlesus, 1000);
 setInterval(saveData, 10000);
+start();
 checkupgrades();
 loadData();
 
@@ -39,66 +83,54 @@ loadData();
 //   updateScore();
 // }
 
+function start() {
+  clickUpgrades[0].style.display = "flex";
+  idleUpgrades[0].style.display = "flex";
+}
+
 function checkupgrades() {
-  if (amongusnum >= upgradeCosts[0]) {
-    document.getElementById("upgrade1").disabled = false;
-  }else{
-    document.getElementById("upgrade1").disabled = true;
+  for(let i=0; i < clickUpgrades.length; i++){
+    if(amongusnum >= clickUpgradeCosts[i]){
+      clickUpgradeButtons[i].disabled = false;   
+      if((document.getElementById("click-upgrades").style.gridTemplateRows).split(" ").length <= i+2){
+        document.getElementById("click-upgrades").style.gridTemplateRows += " 100px";
+        document.getElementById("click-upgrades").style.gridTemplateRows += " 100px";
+        if(i != (clickUpgrades.length)){
+          clickUpgrades[i+1].style.display = "flex";
+        }
+      }
+      
+    }else{
+      clickUpgradeButtons[i].disabled = true;
+    }
   }
-  if (amongusnum >= upgradeCosts[1]) {
-    document.getElementById("upgrade2").disabled = false;
-  }else{
-    document.getElementById("upgrade2").disabled = true;
+  for(let i=0; i < idleUpgrades.length; i++){
+    if(amongusnum >= idleUpgradeCosts[i]){
+      idleUpgradeButtons[i].disabled = false;
+      if((document.getElementById("idle-upgrades").style.gridTemplateRows).split(" ").length <= i+2){
+        document.getElementById("idle-upgrades").style.gridTemplateRows += " 100px";
+        document.getElementById("idle-upgrades").style.gridTemplateRows += " 100px";
+      }
+      if(i != idleUpgrades.length-1){
+        idleUpgrades[i+1].style.display = "flex";
+      }
+    }else{
+      idleUpgradeButtons[i].disabled = true;
+    }
   }
-  if (amongusnum >= upgradeCosts[2]) {
-    document.getElementById("upgrade3").disabled = false;
-  }else{
-    document.getElementById("upgrade3").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[3]) {
-    document.getElementById("upgrade4").disabled = false;
-  }else{
-    document.getElementById("upgrade4").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[4]) {
-    document.getElementById("upgrade5").disabled = false;
-  }else{
-    document.getElementById("upgrade5").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[5]) {
-    document.getElementById("upgrade6").disabled = false;
-  }else{
-    document.getElementById("upgrade6").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[6]) {
-    document.getElementById("upgrade7").disabled = false;
-  }else{
-    document.getElementById("upgrade7").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[7]) {
-    document.getElementById("upgrade8").disabled = false;
-  }else{
-    document.getElementById("upgrade8").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[8]) {
-    document.getElementById("upgrade9").disabled = false;
-  }else{
-    document.getElementById("upgrade9").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[9]) {
-    document.getElementById("upgrade10").disabled = false;
-  }else{
-    document.getElementById("upgrade10").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[10]) {
-    document.getElementById("upgrade11").disabled = false;
-  }else{
-    document.getElementById("upgrade11").disabled = true;
-  }
-  if (amongusnum >= upgradeCosts[11]) {
-    document.getElementById("upgrade12").disabled = false;
-  }else{
-    document.getElementById("upgrade12").disabled = true;
+  for(let i=0; i < accessoryUpgrades.length; i++){
+    if(amongusnum >= accessoryUpgradeCosts[i]){
+      accessoryUpgradeButtons[i].disabled = false;
+      if((document.getElementById("accessory-upgrades").style.gridTemplateRows).split(" ").length <= i+2){
+        document.getElementById("accessory-upgrades").style.gridTemplateRows += " 100px";
+        document.getElementById("accessory-upgrades").style.gridTemplateRows += " 100px";
+      }
+      if(i != accessoryUpgrades.length-1){
+         accessoryUpgrades[i+1].style.display = "flex";
+      }
+    }else{
+      accessoryUpgradeButtons[i].disabled = true;
+    }
   }
   spc.innerHTML = shortNum(clicknum);
   sps.innerHTML = shortNum(idlenum);
@@ -108,174 +140,175 @@ function checkAmongusUpgrades() {
   if (amongusnum >= amongusCost) {
     document.getElementById("buy-amongus").disabled = false;
     document.getElementById("amongus-buy-img").src = amongusList[amongusUpgrades+1];
+    document.getElementById("upgrades-header-amongus").style.visibility = "visible";
+    accessoryUpgrades[0].style.display = "flex";
   }else{
     document.getElementById("buy-amongus").disabled = true;
-    document.getElementById("amongus-buy-img").src = "Unknown.png"
+    document.getElementById("amongus-buy-img").src = "Unknown.png";
   }
 }
 
 function amongusClicked() {
-  amongusnum += Math.round(clicknum);
+  amongusnum += clicknum;
   updateScore();
 }
 
 function addidlesus() {
-  amongusnum += Math.round(idlenum*amongusMultiplier);
+  amongusnum += idlenum;
   Number(amongusnum);
   updateScore();
 }
 
-function upgrade1() {
+function clickupgrade1() {
   clicknum += 1;
-  amongusnum -= upgradeCosts[0];
-  upgradeCosts[0] *= upgradechange;
-  upgradesOwned[0] += 1;
-  upgrade1owned.innerHTML = upgradesOwned[0];
-  upgrade1cost.innerHTML = shortNum(upgradeCosts[0]);
+  amongusnum -= clickUpgradeCosts[0];
+  clickUpgradeCosts[0] *= upgradechange;
+  clickUpgradesOwned[0] += 1;
+  clickupgrade1owned.innerHTML = clickUpgradesOwned[0];
+  clickupgrade1cost.innerHTML = shortNum(clickUpgradeCosts[0]);
   updateScore();
-  checkUpgradeCosts();
 }
 
-function upgrade2() {
-  idlenum += 5;
-  amongusnum -= upgradeCosts[1];
-  upgradeCosts[1] *= upgradechange;
-  updateScore();
-  upgradesOwned[1] += 1;
-  upgrade2owned.innerHTML = upgradesOwned[1];
-  upgrade2cost.innerHTML = shortNum(upgradeCosts[1]);
-}
-
-function upgrade3() {
-  clicknum += 10000;
-  idlenum += 2000;
-  amongusnum -= upgradeCosts[2];
-  upgradeCosts[2] *= upgradechange;
-  updateScore();
-  upgradesOwned[2] += 1;
-  upgrade3owned.innerHTML = upgradesOwned[2];
-  upgrade3cost.innerHTML = shortNum(upgradeCosts[2]);
-  document.getElementById("hat").style.visibility = "visible";
-  document.getElementById("hat").style.left = "-8px";
-  document.getElementById("hat").style.top = "5px";
-  if(accessoryNum !== 1){
-    accessoryNum = 1;
-  }
-  document.getElementById("hat").src = accessories[accessoryNum];
-}
-
-function upgrade4() {
+function clickupgrade2() {
   clicknum += 20;
-  amongusnum -= upgradeCosts[3];
-  upgradeCosts[3] *= upgradechange;
+  amongusnum -= clickUpgradeCosts[1];
+  clickUpgradeCosts[1] *= upgradechange;
+  clickUpgradesOwned[1] += 1;
+  clickupgrade2owned.innerHTML = clickUpgradesOwned[1];
+  clickupgrade2cost.innerHTML = shortNum(clickUpgradeCosts[1]);
   updateScore();
-  upgradesOwned[3] += 1;
-  upgrade4owned.innerHTML = upgradesOwned[3];
-  upgrade4cost.innerHTML = shortNum(upgradeCosts[3]);
 }
 
-function upgrade5() {
-  idlenum += 50;
-  amongusnum -= upgradeCosts[4];
-  upgradeCosts[4] *= upgradechange;
+function clickupgrade3() {
+  clicknum += 500;
+  amongusnum -= clickUpgradeCosts[2];
+  clickUpgradeCosts[2] *= upgradechange;
+  clickUpgradesOwned[2] += 1;
+  clickupgrade3owned.innerHTML = clickUpgradesOwned[2];
+  clickupgrade3cost.innerHTML = shortNum(clickUpgradeCosts[2]);
   updateScore();
-  upgradesOwned[4] += 1;
-  upgrade5owned.innerHTML = upgradesOwned[4];
-  upgrade5cost.innerHTML = shortNum(upgradeCosts[4]);
 }
 
-function upgrade6() {
+function clickupgrade4() {
   clicknum += 1000000;
-  idlenum += 100000;
-  amongusnum -= upgradeCosts[6];
-  upgradeCosts[5] *= upgradechange;
+  amongusnum -= clickUpgradeCosts[3];
+  clickUpgradeCosts[3] *= upgradechange;
+  clickUpgradesOwned[3] += 1;
+  clickupgrade4owned.innerHTML = clickUpgradesOwned[3];
+  clickupgrade4cost.innerHTML = shortNum(clickUpgradeCosts[3]);
   updateScore();
-  upgradesOwned[5] += 1;
-  upgrade6owned.innerHTML = upgradesOwned[5];
-  upgrade6cost.innerHTML = shortNum(upgradeCosts[5]);
+}
+
+function idleupgrade1() {
+  idlenum += 5;
+  amongusnum -= idleUpgradeCosts[0];
+  idleUpgradeCosts[0] *= upgradechange;
+  idleUpgradesOwned[0] += 1;
+  idleupgrade1owned.innerHTML = idleUpgradesOwned[0];
+  idleupgrade1cost.innerHTML = shortNum(idleUpgradeCosts[0]);
+  updateScore();
+}
+
+function idleupgrade2() {
+  idlenum += 50;
+  amongusnum -= idleUpgradeCosts[1];
+  idleUpgradeCosts[1] *= upgradechange;
+  idleUpgradesOwned[1] += 1;
+  idleupgrade2owned.innerHTML = idleUpgradesOwned[1];
+  idleupgrade2cost.innerHTML = shortNum(idleUpgradeCosts[1]);
+  updateScore();
+}
+
+function idleupgrade3() {
+  idlenum += 2000;
+  amongusnum -= idleUpgradeCosts[2];
+  idleUpgradeCosts[2] *= upgradechange;
+  idleUpgradesOwned[2] += 1;
+  idleupgrade3owned.innerHTML = idleUpgradesOwned[2];
+  idleupgrade3cost.innerHTML = shortNum(idleUpgradeCosts[2]);
+  updateScore();
+}
+
+function idleupgrade4() {
+  idlenum += 2000000;
+  amongusnum -= idleUpgradeCosts[3];
+  idleUpgradeCosts[3] *= upgradechange;
+  idleUpgradesOwned[3] += 1;
+  idleupgrade4owned.innerHTML = idleUpgradesOwned[3];
+  idleupgrade4cost.innerHTML = shortNum(idleUpgradeCosts[3]);
+  updateScore();
+}
+
+function accessoryupgrade1() {
+  clicknum += 30000;
+  idlenum += 20000;
+  amongusnum -= accessoryUpgradeCosts[0];
+  accessoryUpgradeCosts[0] *= upgradechange;
+  updateScore();
+  accessoryUpgradesOwned[0] += 1;
+  accessoryupgrade1owned.innerHTML = accessoryUpgradesOwned[0];
+  accessoryupgrade1cost.innerHTML = shortNum(accessoryUpgradeCosts[0]);
   document.getElementById("hat").style.visibility = "visible";
   document.getElementById("hat").style.left = "-8px";
   document.getElementById("hat").style.top = "5px";
-  if(accessoryNum !== 2){
-    accessoryNum = 2;
+  if(accessoryUpgradeNum !== 1){
+    accessoryUpgradeNum = 1;
   }
-  document.getElementById("hat").src = accessories[accessoryNum];
+  document.getElementById("hat").src = accessories[accessoryUpgradeNum];
 }
 
-function upgrade7() {
-  clicknum += 500;
-  amongusnum -= upgradeCosts[7]
-  upgradeCosts[6] *= upgradechange;
+function accessoryupgrade2() {
+  clicknum += 3000000;
+  idlenum += 300000;
+  amongusnum -= accessoryUpgradeCosts[1];
+  accessoryUpgradeCosts[1] *= upgradechange;
   updateScore();
-  upgradesOwned[6] += 1;
-  upgrade7owned.innerHTML = upgradesOwned[6];
-  upgrade7cost.innerHTML = shortNum(upgradeCosts[6]);
+  accessoryUpgradesOwned[1] += 1;
+  accessoryupgrade2owned.innerHTML = accessoryUpgradesOwned[1];
+  accessoryupgrade2cost.innerHTML = shortNum(accessoryUpgradeCosts[1]);
+  document.getElementById("hat").style.visibility = "visible";
+  document.getElementById("hat").style.left = "-8px";
+  document.getElementById("hat").style.top = "5px";
+  if(accessoryUpgradeNum !== 2){
+    accessoryUpgradeNum = 2;
+  }
+  document.getElementById("hat").src = accessories[accessoryUpgradeNum];
 }
 
-function upgrade8() {
-  idlenum += 5000;
-  amongusnum -= upgradeCosts[7];
-  upgradeCosts[7] *= upgradechange;
-  updateScore();
-  upgradesOwned[7] += 1;
-  upgrade8owned.innerHTML = upgradesOwned[7];
-  upgrade8cost.innerHTML = shortNum(upgradeCosts[7]);
-}
-
-function upgrade9() {
+function accessoryupgrade3() {
   idlenum += 10000000;
   clicknum += 1000000000;
-  amongusnum -= upgradeCosts[8];
-  upgradeCosts[8] *= upgradechange;
+  amongusnum -= accessoryUpgradeCosts[2];
+  accessoryUpgradeCosts[2] *= upgradechange;
   updateScore();
+  accessoryUpgradesOwned[2] += 1;
+  accessoryupgrade3owned.innerHTML = accessoryUpgradesOwned[2];
+  accessoryupgrade3cost.innerHTML = shortNum(accessoryUpgradeCosts[2]);
   document.getElementById("hat").style.visibility = "visible";
-  if(accessoryNum !== 3){
-    accessoryNum = 3;
+  if(accessoryUpgradeNum !== 3){
+    accessoryUpgradeNum = 3;
   }
-  document.getElementById("hat").src = accessories[accessoryNum];
+  document.getElementById("hat").src = accessories[accessoryUpgradeNum];
   document.getElementById("hat").style.left = "5px";
   document.getElementById("hat").style.top = "10px";
-  upgradesOwned[8] += 1;
-  upgrade9owned.innerHTML = upgradesOwned[8];
-  upgrade9cost.innerHTML = shortNum(upgradeCosts[8]);
 }
 
-function upgrade10() {
-  clicknum += 100000000;
-  amongusnum -= upgradeCosts[9];
-  upgradeCosts[9] *= upgradechange;
-  updateScore();
-  upgradesOwned[9] += 1;
-  upgrade10owned.innerHTML = upgradesOwned[9];
-  upgrade10cost.innerHTML = shortNum(upgradeCosts[9]);
-}
-
-function upgrade11() {
-  idlenum += 100000000000000;
-  amongusnum -= upgradeCosts[10];
-  upgradeCosts[10] *= upgradechange;
-  updateScore();
-  upgradesOwned[10] += 1;
-  upgrade11owned.innerHTML = upgradesOwned[10];
-  upgrade11cost.innerHTML = shortNum(upgradeCosts[10]);
-}
-
-function upgrade12() {
+function accessoryupgrade4() {
   clicknum += 100000000000;
   idlenum += 1000000000000;
-  amongusnum -= upgradeCosts[11];
-  upgradeCosts[11] *= upgradechange;
+  amongusnum -= accessoryUpgradeCosts[3];
+  accessoryUpgradeCosts[3] *= upgradechange;
+  accessoryUpgradesOwned[3] += 1;
+  accessoryupgrade4owned.innerHTML = accessoryUpgradesOwned[3];
+  accessoryupgrade4cost.innerHTML = shortNum(accessoryUpgradeCosts[3]);
   document.getElementById("hat").style.visibility = "visible";
-  if(accessoryNum !== 4){
-    accessoryNum = 4;
+  if(accessoryUpgradeNum !== 4){
+    accessoryUpgradeNum = 4;
   }
-  document.getElementById("hat").src = accessories[accessoryNum];
+  document.getElementById("hat").src = accessories[accessoryUpgradeNum];
   document.getElementById("hat").style.left = "5px";
   document.getElementById("hat").style.top = "10px";
   updateScore();
-  upgradesOwned[11] += 1;
-  upgrade12owned.innerHTML = upgradesOwned[11];
-  upgrade12cost.innerHTML = shortNum(upgradeCosts[11]);
 }
 
 function buyAmongus() {
@@ -325,12 +358,14 @@ function updateScore() {
 function saveData() {
   localStorage.clear();
   localStorage.setItem("sus", amongusnum);
-  localStorage.setItem("upgradesOwned", upgradesOwned);
+  localStorage.setItem("clickUpgradesOwned", clickUpgradesOwned);
+  localStorage.setItem("idleUpgradesOwned", idleUpgradesOwned);
+  localStorage.setItem("accessoryUpgradesOwned", accessoryUpgradesOwned);
   localStorage.setItem("spc", clicknum);
   localStorage.setItem("sps", idlenum);
   localStorage.setItem("amongusUpgrades", amongusUpgrades);
   localStorage.setItem("amongusCost", amongusCost);
-  localStorage.setItem("accessoryNum", accessoryNum);
+  localStorage.setItem("accessoryUpgradeNum", accessoryUpgradeNum);
 }
 
 function clearData() {
@@ -343,31 +378,48 @@ function loadData() {
     amongusnum = Number(localStorage.getItem("sus"));
     clicknum = Number(localStorage.getItem("spc"));
     idlenum = Number(localStorage.getItem("sps"));
-    accessoryNum = localStorage.getItem("accessoryNum");
-    if(accessoryNum != 0){
+    accessoryUpgradeNum = localStorage.getItem("accessoryUpgradeNum");
+    if(accessoryUpgradeNum != 0){
       document.getElementById("hat").style.visibility = "visible";
     }
-    document.getElementById("hat").src = accessories[accessoryNum];
-    if(accessoryNum >= 3){
+    document.getElementById("hat").src = accessories[accessoryUpgradeNum];
+    if(accessoryUpgradeNum >= 3){
       document.getElementById("hat").style.left = "5px";
       document.getElementById("hat").style.top = "10px";
     }
-    upgradesOwned = localStorage.getItem("upgradesOwned").split(",");
-    for (let index = 0; index < upgradesOwned.length; index++) {
-      upgradesOwned[index] = Number(upgradesOwned[index]);
+    clickUpgradesOwned = localStorage.getItem("clickUpgradesOwned").split(",");
+    for (let index = 0; index < clickUpgradesOwned.length; index++) {
+      clickUpgradesOwned[index] = Number(clickUpgradesOwned[index]);
     }
-    upgradeCosts[0] *= upgradechange ** upgradesOwned[0];
-    upgradeCosts[1] *= upgradechange ** upgradesOwned[1];
-    upgradeCosts[2] *= upgradechange ** upgradesOwned[2];
-    upgradeCosts[3] *= upgradechange ** upgradesOwned[3];
-    upgradeCosts[4] *= upgradechange ** upgradesOwned[4];
-    upgradeCosts[5] *= upgradechange ** upgradesOwned[5];
-    upgradeCosts[6] *= upgradechange ** upgradesOwned[6];
-    upgradeCosts[7] *= upgradechange ** upgradesOwned[7];
-    upgradeCosts[8] *= upgradechange ** upgradesOwned[8];
-    upgradeCosts[9] *= upgradechange ** upgradesOwned[9];
-    upgradeCosts[10] *= upgradechange ** upgradesOwned[10];
-    upgradeCosts[11] *= upgradechange ** upgradesOwned[11];
+    idleUpgradesOwned = localStorage.getItem("idleUpgradesOwned").split(",");
+    for (let index = 0; index < idleUpgradesOwned.length; index++) {
+      idleUpgradesOwned[index] = Number(idleUpgradesOwned[index]);
+    }
+    accessoryUpgradesOwned = localStorage.getItem("accessoryUpgradesOwned").split(",");
+    for (let index = 0; index < accessoryUpgradesOwned.length; index++) {
+      accessoryUpgradesOwned[index] = Number(accessoryUpgradesOwned[index]);
+    }
+    for(let i=0; i<clickUpgradeCosts.length-1; i++){
+      clickUpgradeCosts[i] *= upgradechange ** clickUpgradesOwned[i];
+      if(clickUpgradesOwned[i] != 0){
+        clickUpgrades[i].style.display = "flex";
+        clickUpgrades[i+1].style.display = "flex";
+      }
+    }
+    for(let i=0; i<idleUpgradeCosts.length-1; i++){
+      idleUpgradeCosts[i] *= upgradechange ** idleUpgradesOwned[i];
+      if(idleUpgradesOwned[i] != 0){
+        idleUpgrades[i].style.display = "flex";
+        idleUpgrades[i+1].style.display = "flex";
+      }
+    }
+    for(let i=0; i<accessoryUpgradeCosts.length-1; i++){
+      accessoryUpgradeCosts[i] *= upgradechange ** accessoryUpgradesOwned[i];
+      if(accessoryUpgradesOwned[i] != 0){
+        accessoryUpgrades[i].style.display = "flex";
+        accessoryUpgrades[i+1].style.display = "flex";
+      }
+    }
     loadAmongusUpgrades();
     updateUpgradesOwned();
     updateUpgradeCosts();
@@ -376,33 +428,34 @@ function loadData() {
 }
 
 function updateUpgradesOwned() {
-  upgrade1owned.innerHTML = upgradesOwned[0];
-  upgrade2owned.innerHTML = upgradesOwned[1];
-  upgrade3owned.innerHTML = upgradesOwned[2];
-  upgrade4owned.innerHTML = upgradesOwned[3];
-  upgrade5owned.innerHTML = upgradesOwned[4];
-  upgrade6owned.innerHTML = upgradesOwned[5];
-  upgrade7owned.innerHTML = upgradesOwned[6];
-  upgrade8owned.innerHTML = upgradesOwned[7];
-  upgrade9owned.innerHTML = upgradesOwned[8];
-  upgrade10owned.innerHTML = upgradesOwned[9];
-  upgrade11owned.innerHTML = upgradesOwned[10];
-  upgrade12owned.innerHTML = upgradesOwned[11];
+  clickupgrade1owned.innerHTML = shortNum(clickUpgradesOwned[0]);
+  clickupgrade2owned.innerHTML = shortNum(clickUpgradesOwned[1]);
+  clickupgrade3owned.innerHTML = shortNum(clickUpgradesOwned[2]);
+  clickupgrade4owned.innerHTML = shortNum(clickUpgradesOwned[3]);
+  idleupgrade1owned.innerHTML = shortNum(idleUpgradesOwned[0]);
+  idleupgrade2owned.innerHTML = shortNum(idleUpgradesOwned[1]);
+  idleupgrade3owned.innerHTML = shortNum(idleUpgradesOwned[2]);
+  idleupgrade4owned.innerHTML = shortNum(idleUpgradesOwned[3]);
+  accessoryupgrade1owned.innerHTML = shortNum(accessoryUpgradesOwned[0]);
+  accessoryupgrade2owned.innerHTML = shortNum(accessoryUpgradesOwned[1]);
+  accessoryupgrade3owned.innerHTML = shortNum(accessoryUpgradesOwned[2]);
+  accessoryupgrade4owned.innerHTML = shortNum(accessoryUpgradesOwned[3]);
+
 }
 
 function updateUpgradeCosts() {
-  upgrade1cost.innerHTML = shortNum(upgradeCosts[0]);
-  upgrade2cost.innerHTML = shortNum(upgradeCosts[1]);
-  upgrade3cost.innerHTML = shortNum(upgradeCosts[2]);
-  upgrade4cost.innerHTML = shortNum(upgradeCosts[3]);
-  upgrade5cost.innerHTML = shortNum(upgradeCosts[4]);
-  upgrade6cost.innerHTML = shortNum(upgradeCosts[5]);
-  upgrade7cost.innerHTML = shortNum(upgradeCosts[6]);
-  upgrade8cost.innerHTML = shortNum(upgradeCosts[7]);
-  upgrade9cost.innerHTML = shortNum(upgradeCosts[8]);
-  upgrade10cost.innerHTML = shortNum(upgradeCosts[9]);
-  upgrade11cost.innerHTML = shortNum(upgradeCosts[10]);
-  upgrade12cost.innerHTML = shortNum(upgradeCosts[11]);
+  clickupgrade1cost.innerHTML = shortNum(clickUpgradeCosts[0]);
+  clickupgrade2cost.innerHTML = shortNum(clickUpgradeCosts[1]);
+  clickupgrade3cost.innerHTML = shortNum(clickUpgradeCosts[2]);
+  clickupgrade4cost.innerHTML = shortNum(clickUpgradeCosts[3]);
+  idleupgrade1cost.innerHTML = shortNum(idleUpgradeCosts[0]);
+  idleupgrade2cost.innerHTML = shortNum(idleUpgradeCosts[1]);
+  idleupgrade3cost.innerHTML = shortNum(idleUpgradeCosts[2]);
+  idleupgrade4cost.innerHTML = shortNum(idleUpgradeCosts[3]);
+  accessoryupgrade1cost.innerHTML = shortNum(accessoryUpgradeCosts[0]);
+  accessoryupgrade2cost.innerHTML = shortNum(accessoryUpgradeCosts[1]);
+  accessoryupgrade3cost.innerHTML = shortNum(accessoryUpgradeCosts[2]);
+  accessoryupgrade4cost.innerHTML = shortNum(accessoryUpgradeCosts[3]);
 }
 
 function loadAmongusUpgrades() {

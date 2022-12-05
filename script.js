@@ -78,10 +78,10 @@ document.onkeypress = function (e) {
   key_pressed(e);
 };
 
-// function key_pressed(e) {
-//   amongusnum += 10000*clicknum;
-//   updateScore();
-// }
+function key_pressed(e) {
+  amongusnum += 10000*clicknum;
+  updateScore();
+}
 
 function start() {
   clickUpgrades[0].style.display = "flex";

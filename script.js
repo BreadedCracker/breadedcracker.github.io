@@ -80,6 +80,7 @@ document.onkeypress = function (e) {
 
 function key_pressed(e) {
   amongusnum += 10000*clicknum;
+  alert("sus");
   updateScore();
 }
 

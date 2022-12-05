@@ -97,15 +97,15 @@ start();
 checkupgrades();
 loadData();
 
-document.onkeypress = function (e) {
-  e = e || window.event;
-  key_pressed(e);
-};
+// document.onkeypress = function (e) {
+//   e = e || window.event;
+//   key_pressed(e);
+// };
 
-function key_pressed(e) {
-  amongusnum += 10000*clicknum;
-  updateScore();
-}
+// function key_pressed(e) {
+//   amongusnum += 10000*clicknum;
+//   updateScore();
+// }
 
 function start() {
   clickUpgrades[0].style.display = "flex";

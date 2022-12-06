@@ -104,6 +104,8 @@ var buttonDarkColors = ["#3b1859", "#10004f", "#0a240d", "#46470b", "#4a2f08", "
 
 start();
 
+// cps to sps ratio: 1:5 cost to 
+
 document.onkeypress = function (e) {
   e = e || window.event;
   key_pressed(e);
@@ -422,8 +424,8 @@ function accessoryupgrade3() {
 
 function accessoryupgrade4() {
   var upgradeNum = 3;
-  clicknum += 100000000000;
-  idlenum += 1000000000000;
+  clicknum += 1000000000000;
+  idlenum += 10000000000000;
   TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   accessoryUpgradesOwned[upgradeNum] += 1;

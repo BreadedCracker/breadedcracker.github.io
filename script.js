@@ -3,8 +3,9 @@ var amongusnum = 0;
 var amongusMultiplier = 1;
 var clicknum = 1;
 var idlenum = 0;
-var upgradechange = 1.1;
+var upgradechange = 1.07;
 var buttons = document.querySelectorAll("button");
+var idleUpdateFrequency = 8;
 var amongusupgradechange = 200;
 var amongusCost = 10000000;
 var clickUpgradesOwned = [0,
@@ -14,9 +15,9 @@ var clickUpgradesOwned = [0,
                          0,
                          0];
 var idleUpgradesOwned = [0,
-                         0,
-                         0,
-                         0,
+                        0,
+                        0,
+                        0,
                         0,
                         0];
 var accessoryUpgradesOwned = [0,
@@ -33,10 +34,10 @@ var clickUpgradeCosts = [10,
                         300000000000,
                         0];
 var idleUpgradeCosts = [100,
-                        4000,
-                        125000,
-                        10000000,
-                        500000000,
+                       4000,
+                       125000,
+                       10000000,
+                       500000000,
                        200000000000,
                        0];
 var accessoryUpgradeCosts = [10000000,
@@ -81,21 +82,19 @@ var accessoryUpgradeButtons = [document.getElementById("accessoryupgrade1"),
                     document.getElementById("accessoryupgrade4"),
                               document.getElementById("accessoryupgrade5"),
                               document.getElementById("accessoryupgrade6")];
-var clickUpgradeNum = 0;
-var idleUpgradeNum = 0;
+var clickUpgradeNum = -1;
+var idleUpgradeNum = -1;
+var accessoriesEnabled = false;
 var accessoryUpgradeNum = 0;
+var accessoryUpgradesUnlocked = -1;
 var amongusUpgrades = 0;
 var amongusList = ["Purple.png", "Blue.png", "Green.png", "Yellow.png", "Orange.png", "Red.png", "White.png", "Magenta.png"];
 var accessories = ["", "ToiletPaper.png", "TopHat.png", "DevilHorns.png", "CaptainHat.png", "DumHat.png", "PartyHat.png"]
-var accessoryNum = 0;
 var buttonColors = ["#8936b5", "#4227ab", "#1b5921", "#abad1d", "#c47d1a", "#b52b1f", "#9e9b9b", "#b52878"];
 var buttonMiddleColors = ["#53216e", "#190178", "#123d17", "#767814", "#825311", "#821f16", "#5c5b5b", "#801c54"];
 var buttonDarkColors = ["#3b1859", "#10004f", "#0a240d", "#46470b", "#4a2f08", "#47100b", "#303030", "#4a1031"];
-setInterval(addidlesus, 1000);
-setInterval(saveData, 10000);
+
 start();
-checkupgrades();
-loadData();
 
 // document.onkeypress = function (e) {
 //   e = e || window.event;
@@ -108,18 +107,24 @@ loadData();
 // }
 
 function start() {
+  setInterval(addidlesus, 1000/idleUpdateFrequency);
+  setInterval(saveData, 10000);
+  checkupgrades();
+  loadData();
   clickUpgrades[0].style.display = "flex";
   idleUpgrades[0].style.display = "flex";
 }
 
-function checkupgrades() {
-  for(let i=0; i < clickUpgrades.length; i++){
-    if(amongusnum >= clickUpgradeCosts[i]){
-      clickUpgradeButtons[i].disabled = false;
-      if(i != (clickUpgrades.length-1)){
-        clickUpgrades[i+1].style.display = "flex";
+function checkupgrades() { // i have never put comments in code before, but i GENUINELY CANNOT FOLLOW the horrible coding that i put in here
+  for(let i=0; i < clickUpgrades.length; i++){ // function will run however many click upgrades there are times
+    if(amongusnum >= clickUpgradeCosts[i]){ // check if the score is greater than the upgrade cost of the upgrade # its on
+      clickUpgradeButtons[i].disabled = false; // enable the button
+      if(i != (clickUpgrades.length-1)){ // check if i is not at the end element of the array so that editing the display of the element i+1 is not undefined
+        if(i > clickUpgradeNum){ // if i is higher than we've seen before
+          clickUpgradeNum ++; // change to the number of upgrades unlocked
+          unlockClickUpgrade(i);
+        }
       }
-      clickUpgrades[i].scrollIntoView();
     }else{
       clickUpgradeButtons[i].disabled = true;
     }
@@ -127,11 +132,12 @@ function checkupgrades() {
   for(let i=0; i < idleUpgrades.length; i++){
     if(amongusnum >= idleUpgradeCosts[i]){
       idleUpgradeButtons[i].disabled = false;
-      // alert("sus");
       if(i != idleUpgrades.length-1){
-        idleUpgrades[i+1].style.display = "flex";
+        if(i > idleUpgradeNum){ // if i is higher than we've seen before
+          idleUpgradeNum ++; // change to the number of upgrades unlocked
+          unlockIdleUpgrade(i);
+        }
       }
-      idleUpgrades[i].scrollIntoView();
     }else{
       idleUpgradeButtons[i].disabled = true;
     }
@@ -140,9 +146,12 @@ function checkupgrades() {
     if(amongusnum >= accessoryUpgradeCosts[i]){
       accessoryUpgradeButtons[i].disabled = false;
       if(i != accessoryUpgrades.length-1){
-         accessoryUpgrades[i+1].style.display = "flex";
+        accessoriesEnabled = true;
+        if(i > accessoryUpgradesUnlocked){ // if i is higher than we've seen before
+          accessoryUpgradesUnlocked ++; // change to the number of upgrades unlocked
+          unlockAccessoryUpgrade(i);
+        }
       }
-      accessoryUpgrades[i].scrollIntoView();
     }else{
       accessoryUpgradeButtons[i].disabled = true;
     }
@@ -165,13 +174,18 @@ function checkAmongusUpgrades() {
 
 function amongusClicked() {
   amongusnum += clicknum;
-  updateScore();
+  // updateScore(); not needed due to high idlesus frequency 
 }
 
 function addidlesus() {
-  amongusnum += idlenum;
+  amongusnum += idlenum/idleUpdateFrequency;
   Number(amongusnum);
   updateScore();
+}
+
+function unlockClickUpgrade(num) {
+  clickUpgrades[num+1].style.display = "flex";
+  clickUpgrades[num+1].scrollIntoView({ behavior: 'smooth', block: 'end'});
 }
 
 function clickupgrade1() {
@@ -241,6 +255,11 @@ function clickupgrade6() {
   updateScore();
 }
 
+function unlockIdleUpgrade(num) {
+  idleUpgrades[num+1].style.display = "flex";
+  idleUpgrades[num+1].scrollIntoView({ behavior: 'smooth', block: 'end'});
+}
+
 function idleupgrade1() {
   var upgradeNum = 0;
   idlenum += 5;
@@ -305,6 +324,11 @@ function idleupgrade6() {
   idleupgrade6owned.innerHTML = idleUpgradesOwned[upgradeNum];
   idleupgrade6cost.innerHTML = shortNum(idleUpgradeCosts[upgradeNum]);
   updateScore();
+}
+
+function unlockAccessoryUpgrade(num) {
+  accessoryUpgrades[num+1].style.display = "flex";
+  accessoryUpgrades[num+1].scrollIntoView({ behavior: 'smooth', block: 'end'});
 }
 
 function accessoryupgrade1() {
@@ -461,6 +485,7 @@ function shortNum(value) {
 
 function updateScore() {
   score.innerHTML = shortNum(Math.round(amongusnum));
+  document.title = "Sussy Clicker - " + shortNum(Math.round(amongusnum)) + "  sus";
   checkupgrades();
   checkAmongusUpgrades();
 }
@@ -476,6 +501,7 @@ function saveData() {
   localStorage.setItem("amongusUpgrades", amongusUpgrades);
   localStorage.setItem("amongusCost", amongusCost);
   localStorage.setItem("accessoryUpgradeNum", accessoryUpgradeNum);
+  localStorage.setItem("accessoriesEnabled", accessoriesEnabled);
 }
 
 function clearData() {
@@ -517,8 +543,10 @@ function loadData() {
     for (let index = 0; index < accessoryUpgradesOwned.length; index++) {
       accessoryUpgradesOwned[index] = Number(accessoryUpgradesOwned[index]);
     }
-    if(accessoryUpgrades[0].style.display == "flex"){
+    accessoriesEnabled = localStorage.getItem("accessoriesEnabled");
+    if(accessoriesEnabled == true){
       document.getElementById("upgrades-header-amongus").style.visibility = "visible";
+      alert("sus");
     }
     if(idleUpgradesOwned[5] != 0){
       rainbowCursor();
@@ -536,15 +564,20 @@ function updateUpgradesOwned() {
   clickupgrade2owned.innerHTML = shortNum(clickUpgradesOwned[1]);
   clickupgrade3owned.innerHTML = shortNum(clickUpgradesOwned[2]);
   clickupgrade4owned.innerHTML = shortNum(clickUpgradesOwned[3]);
+  clickupgrade5owned.innerHTML = shortNum(clickUpgradesOwned[4]);
+  clickupgrade6owned.innerHTML = shortNum(clickUpgradesOwned[5]);
   idleupgrade1owned.innerHTML = shortNum(idleUpgradesOwned[0]);
   idleupgrade2owned.innerHTML = shortNum(idleUpgradesOwned[1]);
   idleupgrade3owned.innerHTML = shortNum(idleUpgradesOwned[2]);
   idleupgrade4owned.innerHTML = shortNum(idleUpgradesOwned[3]);
   idleupgrade5owned.innerHTML = shortNum(idleUpgradesOwned[4]);
+  idleupgrade6owned.innerHTML = shortNum(idleUpgradesOwned[5]);
   accessoryupgrade1owned.innerHTML = shortNum(accessoryUpgradesOwned[0]);
   accessoryupgrade2owned.innerHTML = shortNum(accessoryUpgradesOwned[1]);
   accessoryupgrade3owned.innerHTML = shortNum(accessoryUpgradesOwned[2]);
   accessoryupgrade4owned.innerHTML = shortNum(accessoryUpgradesOwned[3]);
+  accessoryupgrade5owned.innerHTML = shortNum(accessoryUpgradesOwned[4]);
+  accessoryupgrade6owned.innerHTML = shortNum(accessoryUpgradesOwned[5]);
 
 }
 

@@ -1,5 +1,5 @@
 var score = document.getElementById("score");
-var amongusnum = 0;
+var TopUpgrades = 0;
 var amongusMultiplier = 1;
 var clicknum = 1;
 var idlenum = 0;
@@ -9,6 +9,8 @@ var idleUpdateFrequency = 8;
 var amongusupgradechange = 200;
 var amongusCost = 10000000;
 var clickUpgradesOwned = [0,
+                         0,
+                         0,
                          0,
                          0,
                          0,
@@ -32,6 +34,8 @@ var clickUpgradeCosts = [10,
                         5000000,
                         1000000000,
                         300000000000,
+                        10000000000000,
+                        200000000000000000,
                         0];
 var idleUpgradeCosts = [100,
                        4000,
@@ -51,13 +55,17 @@ var clickUpgrades = [document.getElementById("clickupgrade1-container"),
                     document.getElementById("clickupgrade3-container"),
                     document.getElementById("clickupgrade4-container"),
                     document.getElementById("clickupgrade5-container"),
-                    document.getElementById("clickupgrade6-container")];
+                    document.getElementById("clickupgrade6-container"),
+                    document.getElementById("clickupgrade7-container"),
+                    document.getElementById("clickupgrade8-container")];
 var clickUpgradeButtons = [document.getElementById("clickupgrade1"),
                     document.getElementById("clickupgrade2"),
                     document.getElementById("clickupgrade3"),
                     document.getElementById("clickupgrade4"),
                           document.getElementById("clickupgrade5"),
-                          document.getElementById("clickupgrade6")];
+                          document.getElementById("clickupgrade6"),
+                          document.getElementById("clickupgrade7"),
+                          document.getElementById("clickupgrade8")];
 var idleUpgrades = [document.getElementById("idleupgrade1-container"),
                    document.getElementById("idleupgrade2-container"),
                    document.getElementById("idleupgrade3-container"),
@@ -96,15 +104,15 @@ var buttonDarkColors = ["#3b1859", "#10004f", "#0a240d", "#46470b", "#4a2f08", "
 
 start();
 
-// document.onkeypress = function (e) {
-//   e = e || window.event;
-//   key_pressed(e);
-// };
+document.onkeypress = function (e) {
+  e = e || window.event;
+  key_pressed(e);
+};
 
-// function key_pressed(e) {
-//   amongusnum += 10000*clicknum;
-//   updateScore();
-// }
+function key_pressed(e) {
+  TopUpgrades += 10000*clicknum;
+  updateScore();
+}
 
 function start() {
   setInterval(addidlesus, 1000/idleUpdateFrequency);
@@ -117,7 +125,7 @@ function start() {
 
 function checkupgrades() { // i have never put comments in code before, but i GENUINELY CANNOT FOLLOW the horrible coding that i put in here
   for(let i=0; i < clickUpgrades.length; i++){ // function will run however many click upgrades there are times
-    if(amongusnum >= clickUpgradeCosts[i]){ // check if the score is greater than the upgrade cost of the upgrade # its on
+    if(TopUpgrades >= clickUpgradeCosts[i]){ // check if the score is greater than the upgrade cost of the upgrade # its on
       clickUpgradeButtons[i].disabled = false; // enable the button
       if(i != (clickUpgrades.length-1)){ // check if i is not at the end element of the array so that editing the display of the element i+1 is not undefined
         if(i > clickUpgradeNum){ // if i is higher than we've seen before
@@ -130,7 +138,7 @@ function checkupgrades() { // i have never put comments in code before, but i GE
     }
   }
   for(let i=0; i < idleUpgrades.length; i++){
-    if(amongusnum >= idleUpgradeCosts[i]){
+    if(TopUpgrades >= idleUpgradeCosts[i]){
       idleUpgradeButtons[i].disabled = false;
       if(i != idleUpgrades.length-1){
         if(i > idleUpgradeNum){ // if i is higher than we've seen before
@@ -143,7 +151,7 @@ function checkupgrades() { // i have never put comments in code before, but i GE
     }
   }
   for(let i=0; i < accessoryUpgrades.length; i++){
-    if(amongusnum >= accessoryUpgradeCosts[i]){
+    if(TopUpgrades >= accessoryUpgradeCosts[i]){
       accessoryUpgradeButtons[i].disabled = false;
       if(i != accessoryUpgrades.length-1){
         accessoriesEnabled = true;
@@ -161,7 +169,7 @@ function checkupgrades() { // i have never put comments in code before, but i GE
 }
 
 function checkAmongusUpgrades() {
-  if (amongusnum >= amongusCost) {
+  if (TopUpgrades >= amongusCost) {
     document.getElementById("buy-amongus").disabled = false;
     document.getElementById("amongus-buy-img").src = amongusList[amongusUpgrades+1];
     document.getElementById("upgrades-header-amongus").style.visibility = "visible";
@@ -173,13 +181,13 @@ function checkAmongusUpgrades() {
 }
 
 function amongusClicked() {
-  amongusnum += clicknum;
+  TopUpgrades += clicknum;
   // updateScore(); not needed due to high idlesus frequency 
 }
 
 function addidlesus() {
-  amongusnum += idlenum/idleUpdateFrequency;
-  Number(amongusnum);
+  TopUpgrades += idlenum/idleUpdateFrequency;
+  Number(TopUpgrades);
   updateScore();
 }
 
@@ -191,7 +199,7 @@ function unlockClickUpgrade(num) {
 function clickupgrade1() {
   var upgradeNum = 0;
   clicknum += 1;
-  amongusnum -= clickUpgradeCosts[upgradeNum];
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
   clickUpgradeCosts[upgradeNum] *= upgradechange;
   clickUpgradesOwned[upgradeNum] += 1;
   clickupgrade1owned.innerHTML = clickUpgradesOwned[upgradeNum];
@@ -202,7 +210,7 @@ function clickupgrade1() {
 function clickupgrade2() {
   var upgradeNum = 1;
   clicknum += 20;
-  amongusnum -= clickUpgradeCosts[upgradeNum];
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
   clickUpgradeCosts[upgradeNum] *= upgradechange;
   clickUpgradesOwned[upgradeNum] += 1;
   clickupgrade2owned.innerHTML = clickUpgradesOwned[upgradeNum];
@@ -213,7 +221,7 @@ function clickupgrade2() {
 function clickupgrade3() {
   var upgradeNum = 2;
   clicknum += 500;
-  amongusnum -= clickUpgradeCosts[upgradeNum];
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
   clickUpgradeCosts[upgradeNum] *= upgradechange;
   clickUpgradesOwned[upgradeNum] += 1;
   clickupgrade3owned.innerHTML = clickUpgradesOwned[upgradeNum];
@@ -224,7 +232,7 @@ function clickupgrade3() {
 function clickupgrade4() {
   var upgradeNum = 3;
   clicknum += 50000;
-  amongusnum -= clickUpgradeCosts[upgradeNum];
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
   clickUpgradeCosts[upgradeNum] *= upgradechange;
   clickUpgradesOwned[upgradeNum] += 1;
   clickupgrade4owned.innerHTML = clickUpgradesOwned[upgradeNum];
@@ -235,7 +243,7 @@ function clickupgrade4() {
 function clickupgrade5() {
   var upgradeNum = 4;
   clicknum += 25000000;
-  amongusnum -= clickUpgradeCosts[upgradeNum];
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
   clickUpgradeCosts[upgradeNum] *= upgradechange;
   clickUpgradesOwned[upgradeNum] += 1;
   clickupgrade5owned.innerHTML = clickUpgradesOwned[upgradeNum];
@@ -246,12 +254,36 @@ function clickupgrade5() {
 function clickupgrade6() {
   var upgradeNum = 5;
   clicknum += 10000000000;
-  amongusnum -= clickUpgradeCosts[upgradeNum];
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
   clickUpgradeCosts[upgradeNum] *= upgradechange;
   clickUpgradesOwned[upgradeNum] += 1;
   clickupgrade6owned.innerHTML = clickUpgradesOwned[upgradeNum];
   clickupgrade6cost.innerHTML = shortNum(clickUpgradeCosts[upgradeNum]);
   rainbowCursor();
+  updateScore();
+}
+
+function clickupgrade7() {
+  var upgradeNum = 6;
+  clicknum += 200000000000;
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
+  clickUpgradeCosts[upgradeNum] *= upgradechange;
+  clickUpgradesOwned[upgradeNum] += 1;
+  clickupgrade7owned.innerHTML = clickUpgradesOwned[upgradeNum];
+  clickupgrade7cost.innerHTML = shortNum(clickUpgradeCosts[upgradeNum]);
+  cursorOfTheNight();
+  updateScore();
+}
+
+function clickupgrade8() {
+  var upgradeNum = 7;
+  clicknum += 2000000000000000;
+  TopUpgrades -= clickUpgradeCosts[upgradeNum];
+  clickUpgradeCosts[upgradeNum] *= upgradechange;
+  clickUpgradesOwned[upgradeNum] += 1;
+  clickupgrade8owned.innerHTML = clickUpgradesOwned[upgradeNum];
+  clickupgrade8cost.innerHTML = shortNum(clickUpgradeCosts[upgradeNum]);
+  smolCursor();
   updateScore();
 }
 
@@ -263,7 +295,7 @@ function unlockIdleUpgrade(num) {
 function idleupgrade1() {
   var upgradeNum = 0;
   idlenum += 5;
-  amongusnum -= idleUpgradeCosts[upgradeNum];
+  TopUpgrades -= idleUpgradeCosts[upgradeNum];
   idleUpgradeCosts[upgradeNum] *= upgradechange;
   idleUpgradesOwned[upgradeNum] += 1;
   idleupgrade1owned.innerHTML = idleUpgradesOwned[upgradeNum];
@@ -274,10 +306,10 @@ function idleupgrade1() {
 function idleupgrade2() {
   var upgradeNum = 1;
   idlenum += 75;
-  amongusnum -= idleUpgradeCosts[upgradeNum];
+  TopUpgrades -= idleUpgradeCosts[upgradeNum];
   idleUpgradeCosts[upgradeNum] *= upgradechange;
-  idleUpgradesOwned[1] += 1;
-  idleupgrade2owned.upgradeNumnnerHTML = idleUpgradesOwned[upgradeNum];
+  idleUpgradesOwned[upgradeNum] += 1;
+  idleupgrade2owned.innerHTML = idleUpgradesOwned[upgradeNum];
   idleupgrade2cost.innerHTML = shortNum(idleUpgradeCosts[upgradeNum]);
   updateScore();
 }
@@ -285,7 +317,7 @@ function idleupgrade2() {
 function idleupgrade3() {
   var upgradeNum = 2;
   idlenum += 2000;
-  amongusnum -= idleUpgradeCosts[upgradeNum];
+  TopUpgrades -= idleUpgradeCosts[upgradeNum];
   idleUpgradeCosts[upgradeNum] *= upgradechange;
   idleUpgradesOwned[upgradeNum] += 1;
   idleupgrade3owned.innerHTML = idleUpgradesOwned[upgradeNum];
@@ -296,7 +328,7 @@ function idleupgrade3() {
 function idleupgrade4() {
   var upgradeNum = 3;
   idlenum += 500000;
-  amongusnum -= idleUpgradeCosts[upgradeNum];
+  TopUpgrades -= idleUpgradeCosts[upgradeNum];
   idleUpgradeCosts[upgradeNum] *= upgradechange;
   idleUpgradesOwned[upgradeNum] += 1;
   idleupgrade4owned.innerHTML = idleUpgradesOwned[upgradeNum];
@@ -307,7 +339,7 @@ function idleupgrade4() {
 function idleupgrade5() {
   var upgradeNum = 4;
   idlenum += 10000000;
-  amongusnum -= idleUpgradeCosts[upgradeNum];
+  TopUpgrades -= idleUpgradeCosts[upgradeNum];
   idleUpgradeCosts[upgradeNum] *= upgradechange;
   idleUpgradesOwned[upgradeNum] += 1;
   idleupgrade5owned.innerHTML = idleUpgradesOwned[upgradeNum];
@@ -318,7 +350,7 @@ function idleupgrade5() {
 function idleupgrade6() {
   var upgradeNum = 5;
   idlenum += 30000000000;
-  amongusnum -= idleUpgradeCosts[upgradeNum];
+  TopUpgrades -= idleUpgradeCosts[upgradeNum];
   idleUpgradeCosts[upgradeNum] *= upgradechange;
   idleUpgradesOwned[upgradeNum] += 1;
   idleupgrade6owned.innerHTML = idleUpgradesOwned[upgradeNum];
@@ -335,7 +367,7 @@ function accessoryupgrade1() {
   var upgradeNum = 0;
   clicknum += 100000;
   idlenum += 200000;
-  amongusnum -= accessoryUpgradeCosts[upgradeNum];
+  TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   updateScore();
   accessoryUpgradesOwned[upgradeNum] += 1;
@@ -354,7 +386,7 @@ function accessoryupgrade2() {
   var upgradeNum = 1;
   clicknum += 3000000;
   idlenum += 30000000;
-  amongusnum -= accessoryUpgradeCosts[upgradeNum];
+  TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   updateScore();
   accessoryUpgradesOwned[upgradeNum] += 1;
@@ -373,7 +405,7 @@ function accessoryupgrade3() {
   var upgradeNum = 2;
   idlenum += 10000000;
   clicknum += 1000000000;
-  amongusnum -= accessoryUpgradeCosts[upgradeNum];
+  TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   updateScore();
   accessoryUpgradesOwned[upgradeNum] += 1;
@@ -392,7 +424,7 @@ function accessoryupgrade4() {
   var upgradeNum = 3;
   clicknum += 100000000000;
   idlenum += 1000000000000;
-  amongusnum -= accessoryUpgradeCosts[upgradeNum];
+  TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   accessoryUpgradesOwned[upgradeNum] += 1;
   accessoryupgrade4owned.innerHTML = accessoryUpgradesOwned[upgradeNum];
@@ -411,7 +443,7 @@ function accessoryupgrade5() {
   var upgradeNum = 4;
   clicknum += 100000000000000;
   idlenum += 1000000000000000;
-  amongusnum -= accessoryUpgradeCosts[upgradeNum];
+  TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   accessoryUpgradesOwned[upgradeNum] += 1;
   accessoryupgrade5owned.innerHTML = accessoryUpgradesOwned[upgradeNum];
@@ -430,7 +462,7 @@ function accessoryupgrade6() {
   var upgradeNum = 5;
   clicknum += 100000000000000;
   idlenum += 1000000000000000;
-  amongusnum -= accessoryUpgradeCosts[upgradeNum];
+  TopUpgrades -= accessoryUpgradeCosts[upgradeNum];
   accessoryUpgradeCosts[upgradeNum] *= upgradechange;
   accessoryUpgradesOwned[upgradeNum] += 1;
   accessoryupgrade6owned.innerHTML = accessoryUpgradesOwned[upgradeNum];
@@ -455,7 +487,7 @@ function buyAmongus() {
   document.querySelector(":root").style.setProperty("--enabledShadowColor", buttonMiddleColors[amongusUpgrades]);
   document.querySelector(":root").style.setProperty("--disabledShadowColor", buttonDarkColors[amongusUpgrades]);
   clicknum *= amongusMultiplier;
-  amongusnum -= amongusCost;
+  TopUpgrades -= amongusCost;
   amongusCost *= amongusupgradechange;
   amonguscost.innerHTML = shortNum(amongusCost);
   checkAmongusUpgrades();
@@ -468,7 +500,7 @@ function buyHammer() {
 function shortNum(value) {
   let newValue = value;
   newValue = Math.round(newValue);
-  const suffixes = ["", "K", "M", "B","T", "Q", "QT", "S", "ST", "O", "N", "D"];
+  const suffixes = ["", "K", "M", "B","T", "Q", "QT", "S", "ST", "O", "N", "D", "U", "DD", "TR", "QTT", "QD", "HD", "SD", "OD", "ND", "V"];
   let suffixNum = 0;
   while (newValue >= 1000) {
     newValue /= 1000;
@@ -484,15 +516,15 @@ function shortNum(value) {
 }
 
 function updateScore() {
-  score.innerHTML = shortNum(Math.round(amongusnum));
-  document.title = "Sussy Clicker - " + shortNum(Math.round(amongusnum)) + "  sus";
+  score.innerHTML = shortNum(Math.round(TopUpgrades));
+  document.title = "Sussy Clicker - " + shortNum(Math.round(TopUpgrades)) + "  sus";
   checkupgrades();
   checkAmongusUpgrades();
 }
 
 function saveData() {
   localStorage.clear();
-  localStorage.setItem("sus", amongusnum);
+  localStorage.setItem("sus", TopUpgrades);
   localStorage.setItem("clickUpgradesOwned", clickUpgradesOwned);
   localStorage.setItem("idleUpgradesOwned", idleUpgradesOwned);
   localStorage.setItem("accessoryUpgradesOwned", accessoryUpgradesOwned);
@@ -511,7 +543,7 @@ function clearData() {
 
 function loadData() {
   if(localStorage.getItem("sus") !== null){
-    amongusnum = Number(localStorage.getItem("sus"));
+    TopUpgrades = Number(localStorage.getItem("sus"));
     clicknum = Number(localStorage.getItem("spc"));
     idlenum = Number(localStorage.getItem("sps"));
     accessoryUpgradeNum = localStorage.getItem("accessoryUpgradeNum");
@@ -548,8 +580,14 @@ function loadData() {
       document.getElementById("upgrades-header-amongus").style.visibility = "visible";
       alert("sus");
     }
-    if(idleUpgradesOwned[5] != 0){
+    if(clickUpgradesOwned[5] != 0){
       rainbowCursor();
+    }
+    if(clickUpgradesOwned[6] != 0){
+      cursorOfTheNight();
+    }
+    if(clickUpgradesOwned[7] != 0){
+      smolCursor();
     }
     loadAmongusUpgrades();
     updateUpgradesOwned();
@@ -635,5 +673,19 @@ function rainbowCursor() {
   document.querySelector("html").style.cursor = "url('RainbowCursor.png'), auto";
   for(var i = 0; i < buttons.length; i++){
     buttons[i].style.cursor = "url('RainbowCursor.png'), auto";
+  }
+}
+
+function cursorOfTheNight(){
+  document.querySelector("html").style.cursor = "url('CursorOfTheNight.png'), auto";
+  for(var i = 0; i < buttons.length; i++){
+    buttons[i].style.cursor = "url('CursorOfTheNight.png'), auto";
+  }
+}
+
+function smolCursor(){
+  document.querySelector("html").style.cursor = "default";
+  for(var i = 0; i < buttons.length; i++){
+    buttons[i].style.cursor = "default";
   }
 }

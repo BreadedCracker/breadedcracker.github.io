@@ -63,9 +63,17 @@ body {
   padding: 15px;
 }
 
+#link-container {
+  width: 200px;
+}
+
+#link-container a {
+  color: white;
+}
+
 #heading-container {
   display: grid;
-  grid-template: 100% / 20% 60% 20%;
+  grid-template: 100% / 20% 10% 50% 20%;
 /*   background-color: green; */
   height: 60px;
   padding: 0px 15px;

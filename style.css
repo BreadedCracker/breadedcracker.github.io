@@ -1,7 +1,3 @@
-/* * {
-  cursor: url("RainbowCursor.png"), pointer;
-} */
-
 :root {
   --buttonColor: #8936b5;
   --disabledButtonColor: #53216e;
@@ -128,6 +124,64 @@ body {
   user-select: none;
 }
 
+#prestigePopup {
+  visibility: hidden;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #636363;
+  border-radius: 30px;
+  top: 70px;
+  left: calc(100% - 215px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--textColor);
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#prestige-button {
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: gray;
+  box-shadow: 0 8px #575757;
+  color: var(--textColor);
+}
+
+#heading-container button:disabled {
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: #575757;
+  box-shadow: 0 4px #444444;
+  color: #575757;
+}
+
+#heading-container button:disabled:active {
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: #575757;
+  box-shadow: 0 4px #444444;
+  color: #575757;
+  transform: translateY(0px);
+}
+
+#prestige-show {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  background-color: black;
+  z-index: 10;
+}
+
 .clicker-box {
   display: grid;
   grid-template-rows: 30% 5% 65%;
@@ -157,6 +211,10 @@ body {
   font-family: sans-serif;
   font-weight: bold;
   font-size: 13px;
+}
+
+.clicker-box #info-container #kills-info {
+  display: none;
 }
 
 #image {
@@ -230,11 +288,12 @@ button:hover {
   background-color: var(--buttonColor);
   box-shadow: 0 8px var(--enabledShadowColor);
   color: var(--textColor);
+  font-weight: bold;
 }
 
 .amongus-upgrades button:disabled {
   background-color: var(--disabledButtonColor);
-  color: transparent;
+  color: var(--disabledShadowColor);
   box-shadow: 0 4px var(--disabledShadowColor);
 }
 
@@ -296,7 +355,7 @@ button:hover {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template: 100px 100px 100px 100px 100px 100px 100px 100px / 100%;
+  grid-template: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px/ 100%;
 }
 
 .upgrades #upgrades-scroll-container button {

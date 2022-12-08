@@ -19,24 +19,31 @@
       <button type="button" onclick="clearData();" id="clear-button">Clear Data</button>
     </div>
     <div id="link-container">
-      <a href="https://breadedcracker.github.io/">If you aren't already, please use the github site! the replit site will be deleted on 12-8</a>
+      <a href="https://breadedcracker.github.io/">If you aren't already, please use the github site! all other sites will be deleted on 12-8</a>
     </div>
     <div>
       <h1>Sussy Clicker</h1> 
     </div>
     <div id="link-mail-container">
-      <a href="mailto:daniel.c178@stu.nebo.edu" target="blank">Send game suggestions and upgrade balancing to me!</a>
+      <a href="mailto:daniel.c178@stu.nebo.edu" target="blank">Send game suggestions and upgrade balancing to me (daniel.c178@stu.nebo.edu)!</a>
     </div>
     <div>
-      <button type="button" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank')">Dev Tools</button>
+      <button id="prestige-popup-button"type="button" onclick="prestigePopup();" disabled>Prestige</button>
     </div>
   </div>
+
+  <div id="prestigePopup">
+    <div>You will earn: <span id="possibleKillsHtml">0</span> kills</div>
+    <button id="prestige-button" type="button" onclick="prestige();">Prestige</button>
+  </div>
+
+  <div id="prestige-show"></div>
   
   <div class="game-container">
     <div class="clicker-box">
       <div id="score">0</div>
       <div id="info-container">
-        <div id="info">SPC: <span id="spc">1</span> &emsp; SPS: <span id="sps">0</span></div>
+        <div id="info">SPC: <span id="spc">1</span> &emsp; SPS: <span id="sps">0</span> <div id="kills-info">&emsp; % gained by kills: <span id="kills-info-num">0</span></div></div>
       </div>
       <div class="img-container">
         <img src="ToiletPaper.png" id="hat">
@@ -51,7 +58,7 @@
         <img id="amongus-buy-img" src="Unknown.png">
       </div>
       <div>
-        <button type="button" onclick="buyHammer();" id="buy-hammer" disabled>Hammer<br>"Smashing!" <br> </br>Cost: <span id="hammercost">1.00Q</span> sus <br></button>
+        <button type="button" onclick="buyHammer();" id="buy-hammer" disabled>Hammer<br>"Smashing!" <br> Cost: <span id="hammercost"></span> sus <br></button>
       </div>
       <div>
         <div>
@@ -114,21 +121,21 @@
             <div class="upgrade-text">Owned: <span id="idleupgrade3owned"> 0 </span></div>
           </div>
           <div id="idleupgrade4-container">
-            <button type="button" onclick="idleupgrade4();" id="idleupgrade4" disabled>Daddy Susser<br>+500K sps<br> Cost: <span id="idleupgrade4cost">10.00M</span> sus</button>
+            <button type="button" onclick="idleupgrade4();" id="idleupgrade4" disabled>Daddy Susser<br>+250K sps<br> Cost: <span id="idleupgrade4cost">10.00M</span> sus</button>
             <div class="upgrade-text">Owned: <span id="idleupgrade4owned"> 0 </span></div>
           </div>
           <div id="idleupgrade5-container">
-            <button type="button" onclick="idleupgrade5();" id="idleupgrade5" disabled>Uber Susser<br>+10M sps<br> Cost: <span id="idleupgrade5cost">500.00M</span> sus</button>
+            <button type="button" onclick="idleupgrade5();" id="idleupgrade5" disabled>Uber Susser<br>+40M sps<br> Cost: <span id="idleupgrade5cost">500.00M</span> sus</button>
             <div class="upgrade-text">Owned: <span id="idleupgrade5owned"> 0 </span></div>
           </div>
           <div id="idleupgrade6-container">
-            <button type="button" onclick="idleupgrade6();" id="idleupgrade6" disabled>Sus Factory<br>+30B sps<br> Cost: <span id="idleupgrade6cost">200.00B</span> sus</button>
+            <button type="button" onclick="idleupgrade6();" id="idleupgrade6" disabled>Sus Factory<br>+10B sps<br> Cost: <span id="idleupgrade6cost">200.00B</span> sus</button>
             <div class="upgrade-text">Owned: <span id="idleupgrade6owned"> 0 </span></div>
           </div>
         </div>
         <div id="accessory-upgrades">
           <div id="accessoryupgrade1-container">
-            <button type="button" onclick="accessoryupgrade1();" id="accessoryupgrade1" disabled>Toilet Paper Amongus <br>He's built different<br>Cost: <span id="accessoryupgrade1cost">10.00M</span> sus</button>
+            <button type="button" onclick="accessoryupgrade1();" id="accessoryupgrade1" disabled>Toilet Paper Amongus <br>He's built different<br>Cost: <span id="accessoryupgrade1cost">25.00M</span> sus</button>
             <div class="upgrade-text">Owned: <span id="accessoryupgrade1owned"> 0 </span></div>
           </div>
           <div id="accessoryupgrade2-container">

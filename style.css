@@ -76,7 +76,7 @@ body {
 
 #heading-container {
   display: grid;
-  grid-template: 100% / 20% 10% 40% 20% 10%;
+  grid-template: 100% / 20% 50% 20% 10%;
 /*   background-color: green; */
   height: 60px;
   padding: 0px 15px;

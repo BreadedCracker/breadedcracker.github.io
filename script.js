@@ -792,16 +792,18 @@ function updateUpgradeCosts() {
 }
 
 function loadAmongusUpgrades() {
-  amongusUpgrades = Number(localStorage.getItem("amongusUpgrades"));
-  document.getElementById("image").src = amongusList[amongusUpgrades];
-  document.getElementById("amongus-buy-img").src = amongusList[amongusUpgrades+1];
-  document.getElementById("upgrades-header-amongus").src = amongusList[amongusUpgrades];
-  document.querySelector(":root").style.setProperty("--buttonColor", buttonColors[amongusUpgrades]);
-  document.querySelector(":root").style.setProperty("--disabledButtonColor", buttonMiddleColors[amongusUpgrades]);
-  document.querySelector(":root").style.setProperty("--enabledShadowColor", buttonMiddleColors[amongusUpgrades]);
-  document.querySelector(":root").style.setProperty("--disabledShadowColor", buttonDarkColors[amongusUpgrades]);
-  amongusCost = Number(localStorage.getItem("amongusCost"));
-  amonguscost.innerHTML = shortNum(amongusCost);
+  if(localStorage.getItem("amongusUpgrades") !== null){
+    amongusUpgrades = Number(localStorage.getItem("amongusUpgrades"));
+    document.getElementById("image").src = amongusList[amongusUpgrades];
+    document.getElementById("amongus-buy-img").src = amongusList[amongusUpgrades+1];
+    document.getElementById("upgrades-header-amongus").src = amongusList[amongusUpgrades];
+    document.querySelector(":root").style.setProperty("--buttonColor", buttonColors[amongusUpgrades]);
+    document.querySelector(":root").style.setProperty("--disabledButtonColor", buttonMiddleColors[amongusUpgrades]);
+    document.querySelector(":root").style.setProperty("--enabledShadowColor", buttonMiddleColors[amongusUpgrades]);
+    document.querySelector(":root").style.setProperty("--disabledShadowColor", buttonDarkColors[amongusUpgrades]);
+    amongusCost = Number(localStorage.getItem("amongusCost"));
+    amonguscost.innerHTML = shortNum(amongusCost);
+  }
 }
 
 function rainbowCursor() {

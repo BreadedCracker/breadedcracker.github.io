@@ -639,6 +639,8 @@ function loadData() {
     amongusnum = Number(localStorage.getItem("sus"));
     clicknum = Number(localStorage.getItem("spc"));
     idlenum = Number(localStorage.getItem("sps"));
+  }
+  if(localStorage.getItem("accessoryUpgradeNum") !== null){
     accessoryUpgradeNum = localStorage.getItem("accessoryUpgradeNum");
     if(accessoryUpgradeNum != 0){
       document.getElementById("hat").style.visibility = "visible";
@@ -656,21 +658,15 @@ function loadData() {
       document.getElementById("hat").style.left = "0px";
       document.getElementById("hat").style.top = "5px";
     }
+  }
+  if(localStorage.getItem("clickUpgradesOwned") !== null){
     clickUpgradesOwned = localStorage.getItem("clickUpgradesOwned").split(",");
     for (let index = 0; index < clickUpgradesOwned.length-1; index++) {
-      clickUpgradesOwned[index] = Number(clickUpgradesOwned[index]);
-    }
-    idleUpgradesOwned = localStorage.getItem("idleUpgradesOwned").split(",");
-    for (let index = 0; index < idleUpgradesOwned.length-1; index++) {
-      idleUpgradesOwned[index] = Number(idleUpgradesOwned[index]);
-    }
-    accessoryUpgradesOwned = localStorage.getItem("accessoryUpgradesOwned").split(",");
-    for (let index = 0; index < accessoryUpgradesOwned.length-1; index++) {
-      accessoryUpgradesOwned[index] = Number(accessoryUpgradesOwned[index]);
-    }
-    accessoriesEnabled = localStorage.getItem("accessoriesEnabled");
-    if(accessoriesEnabled == true){
-      document.getElementById("upgrades-header-amongus").style.visibility = "visible";
+      if(clickUpgradesOwned[index] !== null){
+        clickUpgradesOwned[index] = Number(clickUpgradesOwned[index]);
+      }else{
+        clickUpgradesOwned[index] = 0;
+      }
     }
     if(clickUpgradesOwned[5] != 0){
       rainbowCursor();
@@ -681,6 +677,32 @@ function loadData() {
     if(clickUpgradesOwned[7] != 0){
       smolCursor();
     }
+  }
+  if(localStorage.getItem("idleUpgradesOwned") !== null){
+    idleUpgradesOwned = localStorage.getItem("idleUpgradesOwned").split(",");
+    for (let index = 0; index < idleUpgradesOwned.length-1; index++) {
+      if(idleUpgradesOwned[index] !== null){
+        idleUpgradesOwned[index] = Number(idleUpgradesOwned[index]);
+      }else{
+        idleUpgradesOwned[index] = 0;
+      }
+    }
+  }
+  if(localStorage.getItem("accessoryUpgradesOwned") !== null){
+    accessoryUpgradesOwned = localStorage.getItem("accessoryUpgradesOwned").split(",");
+    for (let index = 0; index < accessoryUpgradesOwned.length-1; index++) {
+      if(accessoryUpgradesOwned[index] !== null){
+        accessoryUpgradesOwned[index] = Number(accessoryUpgradesOwned[index]);
+      }else{
+        accessoryUpgradesOwned[index] = 0;
+      }
+    }
+    accessoriesEnabled = localStorage.getItem("accessoriesEnabled");
+    if(accessoriesEnabled == true){
+      document.getElementById("upgrades-header-amongus").style.visibility = "visible";
+    }
+  }
+  if(localStorage.getItem("kills") !== null){
     kills = Number(localStorage.getItem("kills"));
     prestigeEnabled = Boolean(localStorage.getItem("prestigeEnabled"));
     if(kills == 0){
@@ -689,12 +711,15 @@ function loadData() {
       document.getElementById("kills-info").style.display = "flex";
       document.getElementById("kills-info-num").innerHTML = prestigeShortNum(kills*prestigeMultiplierPercent*100) + "%";
     }
+  }else{
+    kills = 0;
+    prestigeEnabled = false;
+  }
     loadAmongusUpgrades();
     updateUpgradesOwned();
     updateUpgradeCosts();
     updateScore();
     checkupgrades();
-  }
 }
 
 function updateUpgradesOwned() {

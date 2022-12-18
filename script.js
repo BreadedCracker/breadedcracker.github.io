@@ -913,7 +913,7 @@ function reload() {
   for(let i=0; i<accessoryUpgradesOwned.length; i++){
     accessoryUpgradesOwned[i] = 0;
   }
-  var clickUpgradeCosts = [10,
+  clickUpgradeCosts = [10,
                         3000,
                         75000,
                         5000000,
@@ -922,7 +922,7 @@ function reload() {
                         10000000000000,
                         200000000000000000,
                         0];
-  var idleUpgradeCosts = [100,
+  idleUpgradeCosts = [100,
                        4000,
                        125000,
                        10000000,
@@ -931,7 +931,7 @@ function reload() {
                        50000000000000,
                        300000000000000000,
                        0];
-  var accessoryUpgradeCosts = [25000000,
+  accessoryUpgradeCosts = [25000000,
                         10000000000,
                         1000000000000,
                         1000000000000000,

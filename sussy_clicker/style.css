@@ -1,0 +1,431 @@
+:root {
+  --buttonColor: #8936b5;
+  --disabledButtonColor: #53216e;
+  --enabledShadowColor: #53216e;
+  --disabledShadowColor: #3b1859;
+  --backgroundColor: #27292b;
+  --boxColor: #313336;
+  --textColor: white;
+  --infoColor: grey;
+}
+
+::-webkit-scrollbar {
+width: 12px;
+}
+
+::-webkit-scrollbar-track {
+border: 1px solid #575757;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-track:disabled {
+border: 0px solid #575757;
+}
+
+::-webkit-scrollbar-thumb {
+background: gray;  
+border-radius: 10px;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  background-color: var(--backgroundColor);
+  min-height: 600px;
+  min-width: 700px;
+  padding: 0px;
+/*   background-color: yellow; */
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  background-color: var(--backgroundColor);
+/*   background-color: red; */
+}
+
+.game-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 2fr 3fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px; 
+  justify-content: space-around;
+  align-content: space-around;
+  height: calc(100% - 60px - 30px);
+  width: calc(100% - 30px);
+/*   background-color: orange; */
+  padding: 15px;
+}
+
+#link-container {
+  width: 200px;
+}
+
+#link-mail-container {
+  width: 200px;
+}
+#link-container a {
+  color: white;
+}
+
+#link-mail-container a {
+  color: white;
+}
+
+#heading-container {
+  display: grid;
+  grid-template: 100% / 30% 40% 20% 10%;
+/*   background-color: green; */
+  height: 60px;
+  padding: 0px 15px;
+}
+
+#heading-container #save-menu {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template: 100% / 35% 22% 21% 22%;
+}
+
+#heading-container * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#heading-container button {
+  width: 80%;
+  height: 80%;
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: bold;
+  color: var(--textColor);
+  border-radius: 10px;
+  border: none;
+  background-color: gray;
+  box-shadow: 0 8px #575757;
+}
+
+#heading-container button:active {
+  box-shadow: 0 4px #575757;
+  transform: translateY(4px);
+}
+
+
+#heading-container h1 {
+  color: var(--textColor);
+  font-family: sans-serif;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+}
+
+#prestige-popup-button {
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  border: none;
+  background-color: gray;
+  box-shadow: 0 8px #575757;
+  color: var(--textColor);
+}
+
+#prestige-popup-button:disabled {
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  border: none;
+  background-color: #575757;
+  transform: translateY(4px);
+  box-shadow: 0 4px #444444;
+  color: #575757;
+}
+
+#prestige-popup-button:disabled:active {
+  width: 80%;
+  height: 80%;
+  border-radius: 10px;
+  border: none;
+  background-color: #575757;
+  transform: translateY(4px);
+  box-shadow: 0 4px #444444;
+  color: #575757;
+}
+
+#prestigePopup {
+  visibility: hidden;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #636363;
+  border-radius: 30px;
+  top: 70px;
+  left: calc(100% - 215px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: var(--textColor);
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#kills-info {
+  display: none;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--infoColor);
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+#prestige-button {
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: gray;
+  box-shadow: 0 8px #575757;
+  color: var(--textColor);
+}
+
+#prestige-button:active {
+  width: 100px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: gray;
+  box-shadow: 0 4px #575757;
+  transform: translateY(4px);
+  color: var(--textColor);
+}
+
+#prestige-show {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  background-color: black;
+  z-index: 10;
+}
+
+.clicker-box {
+  display: grid;
+  grid-template-rows: 25% 10% 5% 60%;
+  width: 100%;
+  min-width: 300px;
+  height: 100%;
+  border-radius: 30px;
+  background-color: var(--boxColor);
+}
+
+.clicker-box #score {
+  color: var(--textColor);
+  text-align: center;
+  font-size: 70px;
+  font-weight: bold;
+  font-family: sans-serif;
+  user-select: none;
+}
+
+.clicker-box #info-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  color: var(--infoColor);
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+#image {
+  display: block;
+  margin: auto;
+  margin-top: -20px;
+  width: 100px;
+  height: 130px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* img:active {
+  animation: shake 0.1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  20% { transform: translate(-1px, -2px) rotate(-1deg); }
+  40% { transform: translate(-3px, 0px) rotate(1deg); }
+  60% { transform: translate(3px, 2px) rotate(0deg); }
+  80% { transform: translate(1px, -1px) rotate(1deg); }
+  100% { transform: translate(-1px, 2px) rotate(-1deg); }
+} */
+
+button:hover {
+  cursor: default;
+}
+
+.clicker-box #hat {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  visibility: hidden;
+  top: 5px;
+  left: -8px;
+  width: 50px;
+  height: 40px;
+}
+
+.amongus-upgrades {
+  display: grid;
+  grid-template: 100px 100px / 60% 40%;
+  background-color: var(--boxColor);
+  border-radius: 30px;
+}
+
+.amongus-upgrades > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.amongus-upgrades img {
+  width: 70px;
+  height: 91px;
+}
+
+.amongus-upgrades button{
+  width: 50%;
+  max-width: 200px;
+  min-width: 120px;
+  height: 60px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--buttonColor);
+  box-shadow: 0 8px var(--enabledShadowColor);
+  color: var(--textColor);
+  font-weight: bold;
+}
+
+.amongus-upgrades button:disabled {
+  background-color: var(--disabledButtonColor);
+  color: var(--disabledShadowColor);
+  box-shadow: 0 4px var(--disabledShadowColor);
+}
+
+.amongus-upgrades button:disabled:active {
+  transform: none;
+  box-shadow: 0 4px var(--disabledShadowColor);
+}
+
+.amongus-upgrades button:active {
+  box-shadow: 0 4px var(--disabledButtonColor);
+  transform: translateY(4px);
+}
+
+#buy-hammer-img {
+  width: 90px;
+  height: 90px;
+}
+
+.upgrades {
+  width:100%;
+  height: 100%;
+  background-color: var(--boxColor);
+  border-radius: 30px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.upgrades #upgrades-header-container {
+  display: grid;
+  grid-template: 100px calc(100% - 100px) / 33% 33% 34%;
+}
+
+.upgrades #upgrades-header-container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.upgrades #upgrades-header-container #upgrades-header-amongus {
+  visibility: hidden;
+}
+
+.upgrades img {
+  user-select: none;
+}
+
+.upgrades #upgrades-scroll-container {
+  width: 100%;
+  height: calc(100% - 120px);
+  display: grid;
+  grid-template: 100% / 33% 33% 34%;
+  overflow-y: scroll;
+}
+
+.upgrades #upgrades-scroll-container > * {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template: 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px 100px/ 100%;
+}
+
+.upgrades #upgrades-scroll-container button {
+  width: 150px;
+  height: 60px;
+  background-color: var(--buttonColor);
+  color: var(--textColor);
+  border-style: none;
+  outline: none;
+  border-radius: 10px;
+  font-family: sans-serif;
+  font-weight: bold;
+  box-shadow: 0 8px var(--enabledShadowColor);
+  user-select: none;
+}
+
+#upgrades-scroll-container button:disabled {
+  background-color: var(--enabledShadowColor);
+  color: var(--disabledShadowColor);
+  box-shadow: 0 4px var(--disabledShadowColor);
+}
+
+#upgrades-scroll-container button:disabled:active {
+  transform: none;
+  box-shadow: 0 4px var(--disabledShadowColor);
+}
+
+#upgrades-scroll-container button:active {
+  box-shadow: 0 4px var(--enabledShadowColor);
+  transform: translateY(4px);
+}
+
+.upgrades #upgrades-scroll-container > * > * {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+}
+
+.upgrades .upgrade-text {
+  text-align: center;
+  font-family: sans-serif;
+  margin-top: 10px;
+  color: var(--textColor);
+  font-size: 13px;
+}
